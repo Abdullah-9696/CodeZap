@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// Sample 30 courses with realistic links
+// Sample 30 courses with real learning YouTube links
 const sampleCourses = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
   title: `Course ${i + 1}`,
@@ -9,10 +9,11 @@ const sampleCourses = Array.from({ length: 30 }, (_, i) => ({
   level: ["Beginner", "Intermediate", "Advanced"][i % 3],
   link: ["https://www.udemy.com", "https://www.coursera.org", "https://www.edx.org", "https://www.linkedin.com/learning"][i % 4],
   linkyoutube: [
-    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    "https://www.youtube.com/watch?v=3fumBcKC6RE",
-    "https://www.youtube.com/watch?v=V-_O7nl0Ii0",
-  ][i % 3],
+    "https://www.youtube.com/@freecodecamp",
+    "https://www.youtube.com/@TraversyMedia",
+    "https://www.youtube.com/@TheNetNinja",
+    "https://www.youtube.com/@programmingwithmosh",
+  ][i % 4],
 }));
 
 function Courses() {
@@ -24,14 +25,12 @@ function Courses() {
 
   const perPage = 3; // courses per page
 
-  // Fetch Courses (mocked)
   const fetchCourses = (pageNumber = 1) => {
     setLoading(true);
     setTimeout(() => {
       const start = (pageNumber - 1) * perPage;
       const end = start + perPage;
-      const paginatedCourses = sampleCourses.slice(start, end);
-      setCourses(paginatedCourses);
+      setCourses(sampleCourses.slice(start, end));
       setLastPage(Math.ceil(sampleCourses.length / perPage));
       setLoading(false);
     }, 500);

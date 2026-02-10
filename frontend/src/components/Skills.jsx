@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
 
-// Sample 30 skills with URLs
 const sampleSkills = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
   title: ["React Basics", "JavaScript", "Python", "Node.js", "CSS", "HTML", "Django", "Laravel"][i % 8],
   description: `Practice and improve your ${["React", "JS", "Python", "Node", "CSS", "HTML", "Django", "Laravel"][i % 8]} skills.`,
-  link: ["https://www.udemy.com", "https://www.coursera.org", "https://www.edx.org"][i % 3],
+  link: [
+    "https://www.udemy.com",
+    "https://www.coursera.org",
+    "https://www.edx.org",
+  ][i % 3],
   linkText: "Learn More",
+  linkyoutube: [
+    "https://www.youtube.com/@freecodecamp",
+    "https://www.youtube.com/@TraversyMedia",
+    "https://www.youtube.com/@TheNetNinja",
+    "https://www.youtube.com/@programmingwithmosh",
+  ][i % 4],
 }));
 
 function Skills() {
@@ -14,16 +23,14 @@ function Skills() {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
-  const perPage = 3; // 3 skills per page
+  const perPage = 3;
 
   const fetchSkills = (pageNumber = 1) => {
     setLoading(true);
     setTimeout(() => {
       const start = (pageNumber - 1) * perPage;
       const end = start + perPage;
-      const paginatedSkills = sampleSkills.slice(start, end);
-      setSkills(paginatedSkills);
+      setSkills(sampleSkills.slice(start, end));
       setLastPage(Math.ceil(sampleSkills.length / perPage));
       setLoading(false);
     }, 500);
@@ -54,11 +61,19 @@ function Skills() {
                     <p className="card-text">{skill.description}</p>
                     <a
                       href={skill.link}
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-primary me-2"
                       target="_blank"
                       rel="noreferrer"
                     >
                       {skill.linkText}
+                    </a>
+                    <a
+                      href={skill.linkyoutube}
+                      className="btn btn-outline-primary"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      YouTube
                     </a>
                   </div>
                 </div>
@@ -69,19 +84,20 @@ function Skills() {
           <p className="text-center">No skills found.</p>
         )}
 
-        {/* Pagination */}
         <div className="d-flex justify-content-center mt-3">
           <button
             className="btn btn-secondary me-2"
-            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1 || loading}
           >
             Previous
           </button>
-          <span className="align-self-center mx-2">Page {page} of {lastPage}</span>
+          <span className="align-self-center mx-2">
+            Page {page} of {lastPage}
+          </span>
           <button
             className="btn btn-secondary ms-2"
-            onClick={() => setPage(prev => Math.min(prev + 1, lastPage))}
+            onClick={() => setPage((prev) => Math.min(prev + 1, lastPage))}
             disabled={page === lastPage || loading}
           >
             Next
