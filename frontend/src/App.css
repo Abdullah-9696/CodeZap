@@ -1,0 +1,104 @@
+/* General */
+body {
+  background-color: #0a0a0a;
+  color: #000000;
+  padding-top: 56px;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: rgba(0,0,0,0.7);
+  transition: background-color 0.3s ease;
+}
+.navbar.scrolled {
+  background-color: #333;
+}
+.navbar-brand img {
+  height: 80px;
+}
+.nav-link {
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color:#ffffff(--bs-nav-link-color);
+    text-decoration: none;
+    background: 0 0;
+    border: 0;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+.nav-link-b{
+  color: rgb(0, 0, 0) !important;
+  font-size: larger;
+  font-style: italic;
+}
+
+/* Hero */
+.hero {
+  padding-bottom: 20px;
+  position: relative;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.hero video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  filter: brightness(50%);
+}
+.hero-content h1 {
+  font-size: 3rem;
+}
+.hero-content p {
+
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  background-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.card-body {
+  color: #000;
+}
+.card-title {
+  text-align: center;
+  font-weight: 600;
+}
+.btn-outline-primary {
+  border-color: #26A69A;
+  color: #26A69A;
+  transition: all 0.3s;
+}
+.btn-outline-primary:hover {
+  background-color: #26A69A;
+  color: rgb(0, 0, 0);
+}
+
+/* Skills Section */
+.skills-section {
+  background-color: #3a4970;
+}
+
+/* Footer */
+.footer {
+  color: #000;
+  background: linear-gradient(135deg, #f3f3f3, #000000);
+}

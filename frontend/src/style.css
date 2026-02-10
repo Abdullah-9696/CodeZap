@@ -1,0 +1,380 @@
+*::before {
+    background-color: rgb(231, 225, 225);
+}
+
+body {
+    background-color: #939397;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    padding-top: 56px;
+}
+
+/* ---------------- Navbar ---------------- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    background-color: #111111; /* thoda halka black for logo contrast */
+    transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: #111111;
+}
+
+.bg-white {
+    --bs-bg-opacity: 1;
+    background-color: rgb(8 7 7) !important;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    gap: 15px;
+    color: #fdfafa;
+    padding: 0px;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.navbar-brand img {
+    width: 65px; /* resized for clarity */
+    height: auto;
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)); /* white glow */
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05);
+}
+
+/* Ensure CodeZap brand color does NOT change on hover */
+.navbar-brand:hover {
+    color: #f9d126;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #f9d126 !important;
+}
+
+.btn-logout {
+    background-color: #ff4b2b;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 18px;
+    border-radius: 25px;
+    transition: transform 0.3s;
+}
+
+.btn-logout:hover {
+    transform: translateY(-2px);
+}
+
+/* ---------------- Hero Section ---------------- */
+.hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.hero::before {
+    padding-top: 19rem;
+    padding-bottom: 19rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-video {
+    background: url('/src/assets/hero-video.mp4') no-repeat center center/cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    z-index: 2;
+    padding: 20px;
+}
+
+.hero-button {
+    margin-top: 1rem;
+    display: block;
+}
+
+/* ---------------- Courses & Skills ---------------- */
+.container-course {
+    background-color: gray;
+    color: rgb(0, 0, 0);
+    margin: 0.5rem auto;
+    min-height: 55vh;
+    background: url('/src/assets/video2.mp4') no-repeat center center/cover;
+}
+
+.courses-container, .skills-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.course-card, .skill-card {
+    margin-bottom: 2rem;
+    border: 1px solid #26A69A;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.course-card:hover, .skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(212, 208, 208, 0.2);
+}
+
+/* ---------------- Cards ---------------- */
+.card {
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.card-body {
+    background-color: #fff;
+    color: #000;
+    border-radius: 8px;
+}
+
+.card-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.btn-outline-primary {
+    color: #26A69A;
+    border-color: #26A69A;
+    transition: all 0.3s;
+}
+
+.btn-outline-primary:hover {
+    background-color: #26A69A;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* ---------------- Sections ---------------- */
+.skills-section {
+    background-color: #808185;
+}
+
+.footer {
+    filter: brightness(100%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: bolder;
+    background: linear-gradient(135deg, #ffffff, #000000);
+    text-align: center;
+}
+
+.container {
+    max-width: 1320px;
+}
+
+/* ---------------- Headings ---------------- */
+h1 {
+    text-align: center;
+    font-style: oblique;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    font-style: oblique;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+}
+
+/* ---------------- Tech Section ---------------- */
+.tech-section {
+    background-color: gray;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.tech-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.tech-section p {
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.icons {
+    margin-top: 20px;
+}
+
+.icons span {
+    font-size: 2em;
+    margin: 0 10px;
+}
+
+/* ---------------- Slider ---------------- */
+.sliderH1 {
+    font-size: 60px;
+    font-weight: 500;
+    font-family: AvertaStd-Bold, Arial, sans-serif;
+    color: white;
+}
+
+.sliderH3 {
+    font-size: 60px;
+    font-weight: 500;
+    font-family: AvertaStd-Bold, Arial, sans-serif;
+    color: rgb(70, 49, 49);
+}
+
+.sliderP {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 15px;
+    color: #ffffff;
+}
+
+.highlight {
+    color: #f9d126;
+}
+
+.headerSliderButton {
+    margin-top: 30px;
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    border: 2px solid #f9d126;
+    border-radius: 30px;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+}
+
+.headerSliderButton:hover {
+    background: #f9d126;
+    color: #000;
+}
+
+.headerInsideSpan {
+    display: inline-block;
+}
+
+/* ---------------- Misc ---------------- */
+.logo {
+    width: 200px;
+    height: auto;
+}
+.profile-dashboard {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0e067a, #8d64b8);
+    padding-top: 60px;
+    color: #333;
+  }
+  
+  .profile-header {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+  }
+  
+  .profile-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+  }
+  
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .edit-form {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+  }
+  
+  .modern-input {
+    border-radius: 12px !important;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+  }
+  
+  .btn-gradient {
+    background: linear-gradient(135deg, #002efd, #27004e);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-gradient:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
