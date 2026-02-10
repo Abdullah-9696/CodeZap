@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+// Sample 30 skills
+const sampleSkills = Array.from({ length: 30 }, (_, i) => ({
+  id: i + 1,
+  title: `Skill ${i + 1}`,
+  description: `Improve your expertise in Skill ${i + 1} with practical exercises and examples.`,
+  link: "https://example.com",
+  linkText: "Learn More",
+}));
 
 function Skills() {
   const [skills, setSkills] = useState([]);
@@ -9,23 +17,18 @@ function Skills() {
 
   const perPage = 3; // 3 skills per page
 
-  const fetchSkills = async (pageNumber = 1) => {
+  // -------- Fetch Skills Function (mocked) --------
+  const fetchSkills = (pageNumber = 1) => {
     setLoading(true);
-    try {
-      const res = await axios.get(`http://127.0.0.1:8000/skills?page=${pageNumber}&per_page=${perPage}`);
-      if (res.data && res.data.data) {
-        setSkills(res.data.data);
-        setLastPage(res.data.last_page);
-      } else {
-        setSkills([]);
-        setLastPage(1);
-      }
-    } catch (err) {
-      console.error(err);
-      setSkills([]);
-      setLastPage(1);
-    }
-    setLoading(false);
+    setTimeout(() => {
+      const start = (pageNumber - 1) * perPage;
+      const end = start + perPage;
+      const paginatedSkills = sampleSkills.slice(start, end);
+
+      setSkills(paginatedSkills);
+      setLastPage(Math.ceil(sampleSkills.length / perPage));
+      setLoading(false);
+    }, 500); // simulate network delay
   };
 
   useEffect(() => {
@@ -45,13 +48,20 @@ function Skills() {
           </div>
         ) : skills.length > 0 ? (
           <div className="row">
-            {skills.map((skill, index) => (
-              <div key={index} className="col-md-4 mb-4">
+            {skills.map((skill) => (
+              <div key={skill.id} className="col-md-4 mb-4">
                 <div className="card h-100">
                   <div className="card-body">
                     <h5 className="card-title">{skill.title}</h5>
                     <p className="card-text">{skill.description}</p>
-                    <a href={skill.link} className="btn btn-outline-primary">{skill.linkText}</a>
+                    <a
+                      href={skill.link}
+                      className="btn btn-outline-primary"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {skill.linkText}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -65,15 +75,17 @@ function Skills() {
         <div className="d-flex justify-content-center mt-3">
           <button
             className="btn btn-secondary me-2"
-            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1 || loading}
           >
             Previous
           </button>
-          <span className="align-self-center mx-2">Page {page} of {lastPage}</span>
+          <span className="align-self-center mx-2">
+            Page {page} of {lastPage}
+          </span>
           <button
             className="btn btn-secondary ms-2"
-            onClick={() => setPage(prev => Math.min(prev + 1, lastPage))}
+            onClick={() => setPage((prev) => Math.min(prev + 1, lastPage))}
             disabled={page === lastPage || loading}
           >
             Next

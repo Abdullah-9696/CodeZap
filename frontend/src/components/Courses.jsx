@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+// Sample 30 courses
+const sampleCourses = Array.from({ length: 30 }, (_, i) => ({
+  id: i + 1,
+  title: `Course ${i + 1}`,
+  description: `This is the description for Course ${i + 1}.`,
+  platform: ["Udemy", "Coursera", "edX"][i % 3],
+  level: ["Beginner", "Intermediate", "Advanced"][i % 3],
+  link: "https://example.com",
+  linkyoutube: "https://youtube.com",
+}));
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -10,31 +20,19 @@ function Courses() {
 
   const perPage = 3; // courses per page
 
-  // -------- Fetch Courses Function --------
-const fetchCourses = async (pageNumber = 1) => {
-  setLoading(true);
-  try {
-    const res = await axios.get(
-      `http://127.0.0.1:8000/courses?page=${pageNumber}&per_page=${perPage}`,
-      { withCredentials: true }
-    );
+  // -------- Fetch Courses Function (mocked) --------
+  const fetchCourses = (pageNumber = 1) => {
+    setLoading(true);
+    setTimeout(() => {
+      const start = (pageNumber - 1) * perPage;
+      const end = start + perPage;
+      const paginatedCourses = sampleCourses.slice(start, end);
 
-    if (res.data && res.data.data) {
-      setCourses(res.data.data);
-      setLastPage(res.data.last_page);
-    } else {
-      setCourses([]);
-      setLastPage(1);
-    }
-  } catch (err) {
-    console.error("Failed to fetch courses:", err);
-    setCourses([]);
-    setLastPage(1);
-  } finally {
-    setLoading(false);
-  }
-};
-
+      setCourses(paginatedCourses);
+      setLastPage(Math.ceil(sampleCourses.length / perPage));
+      setLoading(false);
+    }, 500); // simulate network delay
+  };
 
   // Fetch courses on page change
   useEffect(() => {
@@ -76,8 +74,22 @@ const fetchCourses = async (pageNumber = 1) => {
                   <p className="card-text">{course.description}</p>
                   <p><strong>Platform:</strong> {course.platform}</p>
                   <p><strong>Level:</strong> {course.level}</p>
-                  <a href={course.link} className="btn btn-outline-primary me-2" target="_blank" rel="noreferrer">Visit</a>
-                  <a href={course.linkyoutube} className="btn btn-outline-primary" target="_blank" rel="noreferrer">YouTube</a>
+                  <a
+                    href={course.link}
+                    className="btn btn-outline-primary me-2"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Visit
+                  </a>
+                  <a
+                    href={course.linkyoutube}
+                    className="btn btn-outline-primary"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    YouTube
+                  </a>
                 </div>
               </div>
             </div>
