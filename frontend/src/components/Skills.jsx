@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
-// Sample 30 skills
+// Sample 30 skills with URLs
 const sampleSkills = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
-  title: `Skill ${i + 1}`,
-  description: `Improve your expertise in Skill ${i + 1} with practical exercises and examples.`,
-  link: "https://example.com",
+  title: ["React Basics", "JavaScript", "Python", "Node.js", "CSS", "HTML", "Django", "Laravel"][i % 8],
+  description: `Practice and improve your ${["React", "JS", "Python", "Node", "CSS", "HTML", "Django", "Laravel"][i % 8]} skills.`,
+  link: ["https://www.udemy.com", "https://www.coursera.org", "https://www.edx.org"][i % 3],
   linkText: "Learn More",
 }));
 
@@ -17,18 +17,16 @@ function Skills() {
 
   const perPage = 3; // 3 skills per page
 
-  // -------- Fetch Skills Function (mocked) --------
   const fetchSkills = (pageNumber = 1) => {
     setLoading(true);
     setTimeout(() => {
       const start = (pageNumber - 1) * perPage;
       const end = start + perPage;
       const paginatedSkills = sampleSkills.slice(start, end);
-
       setSkills(paginatedSkills);
       setLastPage(Math.ceil(sampleSkills.length / perPage));
       setLoading(false);
-    }, 500); // simulate network delay
+    }, 500);
   };
 
   useEffect(() => {
@@ -75,17 +73,15 @@ function Skills() {
         <div className="d-flex justify-content-center mt-3">
           <button
             className="btn btn-secondary me-2"
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
             disabled={page === 1 || loading}
           >
             Previous
           </button>
-          <span className="align-self-center mx-2">
-            Page {page} of {lastPage}
-          </span>
+          <span className="align-self-center mx-2">Page {page} of {lastPage}</span>
           <button
             className="btn btn-secondary ms-2"
-            onClick={() => setPage((prev) => Math.min(prev + 1, lastPage))}
+            onClick={() => setPage(prev => Math.min(prev + 1, lastPage))}
             disabled={page === lastPage || loading}
           >
             Next

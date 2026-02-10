@@ -1,20 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { API, getCsrfCookie } from "../axios";
 import logo from "../assets/logo_image.png";
 
 const APP_BASE = import.meta.env.VITE_APP_BASE || "http://127.0.0.1:8000";
-const LOGIN_URL = `${APP_BASE}/login`;
 
 function Navbar() {
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // only for mobile
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992); // track screen size
-  const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  // check screen size
+  // Check screen size
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 992);
@@ -26,8 +24,8 @@ function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Fetch user info
   useEffect(() => {
-    // Capture token from URL (for /?token=...)
     const params = new URLSearchParams(window.location.search);
     const urlToken = params.get("token");
     if (urlToken) {
@@ -66,26 +64,8 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await getCsrfCookie();
-      await API.post(`/logout`);
-    } catch {}
-
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("token");
-    sessionStorage.clear();
-
-    window.location.href = LOGIN_URL;
-  };
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const toggleMenu = () => {
-    if (isMobile) setMenuOpen(!menuOpen); // only toggle on mobile
-  };
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const toggleMenu = () => { if (isMobile) setMenuOpen(!menuOpen); };
 
   return (
     <nav className="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
@@ -101,53 +81,35 @@ function Navbar() {
           <span className="fw-bold">CodeZap</span>
         </Link>
 
-        {/* Toggle button for mobile */}
+        {/* Mobile toggle button */}
         {isMobile && (
-          <button
-            className="navbar-toggler"
-            type="button"
-            onClick={toggleMenu}
-          >
+          <button className="navbar-toggler" type="button" onClick={toggleMenu}>
             <span className="navbar-toggler-icon"></span>
           </button>
         )}
 
         {/* Nav links */}
         <div
-          className={`collapse navbar-collapse justify-content-end ${
-            menuOpen && isMobile ? "show" : ""
-          }`}
+          className={`collapse navbar-collapse justify-content-end ${menuOpen && isMobile ? "show" : ""}`}
           id="navbarNav"
           style={{
-            maxHeight: isMobile ? "80vh" : "none", // scroll only on mobile
+            maxHeight: isMobile ? "80vh" : "none",
             overflowY: isMobile ? "auto" : "visible",
           }}
         >
           <ul className="navbar-nav align-items-center flex-column flex-lg-row gap-3">
             <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/"
-                onClick={() => setMenuOpen(false)}
-              >
+              <Link className="nav-link" to="/" onClick={() => setMenuOpen(false)}>
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/courses"
-                onClick={() => setMenuOpen(false)}
-              >
+              <Link className="nav-link" to="/courses" onClick={() => setMenuOpen(false)}>
                 Courses
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/skills"
-                onClick={() => setMenuOpen(false)}
-              >
+              <Link className="nav-link" to="/skills" onClick={() => setMenuOpen(false)}>
                 Skills
               </Link>
             </li>
@@ -208,13 +170,6 @@ function Navbar() {
                 )}
               </li>
             )}
-
-            {/* Logout */}
-            <li className="nav-item">
-              <button className="btn btn-danger" onClick={handleLogout}>
-                Logout
-              </button>
-            </li>
           </ul>
         </div>
       </div>

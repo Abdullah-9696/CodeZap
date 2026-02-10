@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 
-// Sample 30 courses
+// Sample 30 courses with realistic links
 const sampleCourses = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
   title: `Course ${i + 1}`,
-  description: `This is the description for Course ${i + 1}.`,
-  platform: ["Udemy", "Coursera", "edX"][i % 3],
+  description: `Learn and master Course ${i + 1} with practical exercises.`,
+  platform: ["Udemy", "Coursera", "edX", "LinkedIn Learning"][i % 4],
   level: ["Beginner", "Intermediate", "Advanced"][i % 3],
-  link: "https://example.com",
-  linkyoutube: "https://youtube.com",
+  link: ["https://www.udemy.com", "https://www.coursera.org", "https://www.edx.org", "https://www.linkedin.com/learning"][i % 4],
+  linkyoutube: [
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "https://www.youtube.com/watch?v=3fumBcKC6RE",
+    "https://www.youtube.com/watch?v=V-_O7nl0Ii0",
+  ][i % 3],
 }));
 
 function Courses() {
@@ -20,26 +24,23 @@ function Courses() {
 
   const perPage = 3; // courses per page
 
-  // -------- Fetch Courses Function (mocked) --------
+  // Fetch Courses (mocked)
   const fetchCourses = (pageNumber = 1) => {
     setLoading(true);
     setTimeout(() => {
       const start = (pageNumber - 1) * perPage;
       const end = start + perPage;
       const paginatedCourses = sampleCourses.slice(start, end);
-
       setCourses(paginatedCourses);
       setLastPage(Math.ceil(sampleCourses.length / perPage));
       setLoading(false);
-    }, 500); // simulate network delay
+    }, 500);
   };
 
-  // Fetch courses on page change
   useEffect(() => {
     fetchCourses(page);
   }, [page]);
 
-  // Filter courses based on search
   const filteredCourses = courses.filter(
     (course) =>
       course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
